@@ -2,9 +2,9 @@ require 'facter'
 Facter.add('filebeat_version') do
   confine 'kernel' => ['FreeBSD', 'OpenBSD', 'Linux', 'Windows']
   if File.executable?('/usr/bin/filebeat')
-    filebeat_version = Facter::Util::Resolution.exec('/usr/bin/filebeat version')
+    filebeat_version = Facter::Util::Resolution.exec('/usr/bin/filebeat --version')
     if filebeat_version.empty?
-      filebeat_version = Facter::Util::Resolution.exec('/usr/bin/filebeat --version')
+      filebeat_version = Facter::Util::Resolution.exec('/usr/bin/filebeat version')
     end
   elsif File.executable?('/usr/local/bin/filebeat')
     filebeat_version = Facter::Util::Resolution.exec('/usr/local/bin/filebeat --version')
